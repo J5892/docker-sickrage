@@ -1,12 +1,14 @@
-# Dockerfile to set up SickRage on ARM based systems
+# Dockerfile to set up SickRage on ARM and X86 based systems
 
-[![Build Status](https://travis-ci.org/edv/docker-arm-sickrage.svg?branch=master)](https://travis-ci.org/edv/docker-arm-sickrage)
+[![Build Status](https://travis-ci.org/edv/docker-sickrage.svg?branch=master)](https://travis-ci.org/edv/docker-sickrage)
 
-The main goal of this Dockerfile is to easily set up SickRage using Docker on the Raspberry Pi 2/3 (or any compatible ARM chipset).
+The main goal of this Dockerfile is to easily set up SickRage using Docker on the Raspberry Pi 2/3 (or any compatible ARM chipset) and regular X86 chipsets.
 
 ## Quick setup
 
 `docker run -p 8081:8081 --name sickrage -d -v /*custom_config_dir*:/config -v /*custom_data_dir*:/data -v /*tvshows_dir*:/tvshows -v /*download_dir*:/downloads -v /etc/localtime:/etc/localtime:ro erikdevries/rpi-sickrage`
+
+Please use `erikdevries/sickrage` when running on X86 hardware.
 
 ## More details
 
@@ -31,4 +33,4 @@ In the command above the image is pulled from Docker Hub. If you want to build t
 
 `docker build -t rpi-sickrage .`
 
-Finally run the command in `quick setup` but replace `erikdevries/rpi-sickrage` with `rpi-sickrage` 
+Finally run the command in `quick setup` but replace `erikdevries/rpi-sickrage` with `rpi-sickrage` or `sickrage`

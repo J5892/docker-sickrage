@@ -10,18 +10,23 @@ branches:
   - master
 
 script:
-# prepare qemu
-- docker run --rm --privileged multiarch/qemu-user-static:register --reset
-# build image
-- docker build -t erikdevries/rpi-sickrage .
-# run and test image
-- docker run -p 8081:8081 -it --entrypoint=/usr/bin/python erikdevries/rpi-sickrage --version
+  # Build X86 docker image
+  - docker build -f ./x86/Dockerfile -t erikdevries/sickrage .
+  - docker run -it --entrypoint=/usr/bin/python erikdevries/sickrage --version
+  # Build ARM docker image
+  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  - docker build -f ./arm/Dockerfile -t erikdevries/rpi-sickrage .
+  - docker run -it --entrypoint=/usr/bin/python erikdevries/rpi-sickrage --version
 
 after_success:
 # push image
 - >
   if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+
+    docker tag erikdevries/sickrage erikdevries/sickrage:latest
+    docker push erikdevries/sickrage
+
     docker tag erikdevries/rpi-sickrage erikdevries/rpi-sickrage:latest
     docker push erikdevries/rpi-sickrage
   fi
