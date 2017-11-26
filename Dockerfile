@@ -8,10 +8,13 @@ RUN apk -U update && \
         python \
         py-openssl \
         py-lxml \
-    && \
-    git clone --depth 1 https://github.com/SiCKRAGETV/SiCKRAGE.git /SickRage && \
+	py-pip
+
+RUN git clone https://github.com/SiCKRAGETV/SiCKRAGE.git /SickRage && \
     rm -rf /tmp/src && \
-    rm -rf /var/cache/apk/*
+    rm -rf /var/cache/apk/* && \
+    cd /SickRage && \
+    pip install -r requirements.txt
 
 VOLUME ["/config", "/data", "/tvshows", "/downloads"]
 

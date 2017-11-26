@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec python /SickRage/SickBeard.py --datadir=/data/ --config=/config/config.ini
+exec python /SickRage/SiCKRAGE.py --datadir=/data/ --config=/config/config.ini
